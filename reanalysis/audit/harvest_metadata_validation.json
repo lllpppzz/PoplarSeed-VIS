@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "n_images": 2426,
+  "n_materials": 7,
+  "n_harvest_batches": 13,
+  "multi_batch_materials": 4,
+  "unchanged_inputs": [
+    "data/seed_features.csv",
+    "data/seed_manifest.csv",
+    "data/primary_predictions.csv",
+    "data/tuning_cv_fold_manifest.csv",
+    "data/training_cv_folds.csv"
+  ],
+  "saved_model_hashes_unchanged": true,
+  "numeric_result_cells_unchanged": true,
+  "only_result_csv_change": "cluster_rank_effects.csv scope wording; numeric columns checked equal",
+  "batch_basis": "seed harvest date",
+  "exact_dates_included": false,
+  "suffix_1": "earlier harvest within repeated materials",
+  "temporal_protocol": "exhaustive batch holdout in both directions, not prospective-only"
+}

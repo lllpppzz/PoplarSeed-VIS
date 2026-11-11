@@ -1,0 +1,14 @@
+batch,material,images,batch_basis,suffix,within_material_harvests,timing_note,relative_timing,exact_harvest_date,exact_interval_days
+HENAN ZL-1,HENAN ZL,156,seed harvest date,1,2,different harvest dates separated by several days,earlier harvest,not supplied,not supplied
+HENAN ZL-2,HENAN ZL,232,seed harvest date,2,2,different harvest dates separated by several days,distinct harvest; exact order not supplied,not supplied,not supplied
+LIAON LHY-1,LIAON LHY,192,seed harvest date,1,1,single observed harvest batch,not comparable within this material,not supplied,not supplied
+LIAON MZHY-1,LIAON MZHY,150,seed harvest date,1,1,single observed harvest batch,not comparable within this material,not supplied,not supplied
+LIAON XQY-1,LIAON XQY,147,seed harvest date,1,1,single observed harvest batch,not comparable within this material,not supplied,not supplied
+NJFU 895-1,NJFU 895,196,seed harvest date,1,4,different harvest dates separated by several days,earlier harvest,not supplied,not supplied
+NJFU 895-2,NJFU 895,219,seed harvest date,2,4,different harvest dates separated by several days,distinct harvest; exact order not supplied,not supplied,not supplied
+NJFU 895-3,NJFU 895,207,seed harvest date,3,4,different harvest dates separated by several days,distinct harvest; exact order not supplied,not supplied,not supplied
+NJFU 895-4,NJFU 895,159,seed harvest date,4,4,different harvest dates separated by several days,distinct harvest; exact order not supplied,not supplied,not supplied
+SHANXI QZ-1,SHANXI QZ,178,seed harvest date,1,2,different harvest dates separated by several days,earlier harvest,not supplied,not supplied
+SHANXI QZ-2,SHANXI QZ,200,seed harvest date,2,2,different harvest dates separated by several days,distinct harvest; exact order not supplied,not supplied,not supplied
+SHANXI XY-1,SHANXI XY,234,seed harvest date,1,2,different harvest dates separated by several days,earlier harvest,not supplied,not supplied
+SHANXI XY-2,SHANXI XY,156,seed harvest date,2,2,different harvest dates separated by several days,distinct harvest; exact order not supplied,not supplied,not supplied

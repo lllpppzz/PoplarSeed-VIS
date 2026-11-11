@@ -1,4 +1,4 @@
-"""Exploratory uncertainty with acquisition-batch clusters, not biological replication."""
+"""Exploratory uncertainty with harvest-batch clusters, not biological replication."""
 from pathlib import Path
 import numpy as np,pandas as pd,json,time
 from scipy import stats,optimize
@@ -63,7 +63,7 @@ def main():
  for j,t in enumerate(TRAITS):
   assert np.isclose(orig7[j],old.loc[t,'eta_squared_H'],rtol=1e-10)
   lo,hi=np.quantile(e7[:,j],[.025,.975]);l4,h4=np.quantile(e4[:,j],[.025,.975])
-  rows.append({'trait':t,'rank_effect_seven':orig7[j],'cluster_low_seven':lo,'cluster_high_seven':hi,'old_seed_low_seven':old.loc[t,'effect_ci_low'],'old_seed_high_seven':old.loc[t,'effect_ci_high'],'rank_effect_four':orig4[j],'cluster_low_four':l4,'cluster_high_four':h4,'bootstrap_n':B,'seven_scope':'conditional on one observed batch for each LIAON material','four_scope':'10 acquisition batches; biological independence not established'})
+  rows.append({'trait':t,'rank_effect_seven':orig7[j],'cluster_low_seven':lo,'cluster_high_seven':hi,'old_seed_low_seven':old.loc[t,'effect_ci_low'],'old_seed_high_seven':old.loc[t,'effect_ci_high'],'rank_effect_four':orig4[j],'cluster_low_four':l4,'cluster_high_four':h4,'bootstrap_n':B,'seven_scope':'conditional on one observed batch for each LIAON material','four_scope':'10 harvest batches; biological independence not established'})
  pd.DataFrame(rows).to_csv(WORK/'tables/cluster_rank_effects.csv',index=False)
  combos=[('s_mean','LIAON LHY','SHANXI XY'),('v_mean','LIAON LHY','SHANXI XY'),('glcm_contrast_d1','LIAON LHY','LIAON MZHY'),('glcm_contrast_d1','LIAON LHY','LIAON XQY'),('glcm_contrast_d1','LIAON MZHY','LIAON XQY'),('glcm_contrast_d1','SHANXI QZ','SHANXI XY')]
  pairs=[]
@@ -91,7 +91,7 @@ def main():
  check=sm.MixedLM(yy,xx,groups=rep.batch).fit(reml=True,method='powell',disp=False)
  ours=comps[0];assert np.isclose(ours['batch_variance'],check.cov_re.iloc[0,0],rtol=.002,atol=1e-6)
  assert np.isclose(ours['seed_residual_variance'],check.scale,rtol=.002,atol=1e-6)
- result={'passed':True,'bootstrap_samples':B,'rng_seed':SEED,'all_seed_effects_reproduced':True,'reml_validated_against_statsmodels':True,'wall_seconds':time.time()-start,'warnings':['Each material occurs in one region; fixed effects represent material/source combinations.','Three materials have only one batch; all-material intervals condition on those batches.','Only 2–4 batches per replicated material; bootstrap intervals are sensitivity summaries, not robust population confidence bounds.','Acquisition groups do not establish independent biological replication.']}
+ result={'passed':True,'bootstrap_samples':B,'rng_seed':SEED,'all_seed_effects_reproduced':True,'reml_validated_against_statsmodels':True,'wall_seconds':time.time()-start,'warnings':['Each material occurs in one region; fixed effects represent material/source combinations.','Three materials have only one batch; all-material intervals condition on those batches.','Only 2–4 batches per replicated material; bootstrap intervals are sensitivity summaries, not robust population confidence bounds.','Harvest batches do not establish independent biological replication.']}
  (WORK/'audit/cluster_analysis.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
  print(json.dumps(result,indent=2),flush=True)
 

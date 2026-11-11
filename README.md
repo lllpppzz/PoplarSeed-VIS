@@ -10,11 +10,11 @@
 For a self-contained run, unpack Supplementary_Data_S1.zip and follow its README. The browsable reanalysis directory provides the same scripts and numeric records; image and mask payloads are in the complete package.
 
 
-We provide PoplarSeed-VIS for individual-seed phenotyping and identification of poplar seed materials. Our dataset contains **2,426 RGB images**, covering **seven materials**, **13 acquisition groups** and **four source regions**. Each image is linked to a foreground mask, phenotype measurements and a fixed training/test assignment.
+We provide PoplarSeed-VIS for individual-seed phenotyping and identification of poplar seed materials. Our dataset contains **2,426 RGB images**, covering **seven materials**, **13 harvest batches** and **four source regions**. Each image is linked to a foreground mask, phenotype measurements and a fixed training/test assignment.
 
 ## Dataset composition
 
-| Region | Material | Images | Acquisition groups |
+| Region | Material | Images | Harvest batches |
 |---|---|---:|---:|
 | North China | SHANXI QZ | 378 | 2 |
 | North China | SHANXI XY | 390 | 2 |
@@ -27,20 +27,21 @@ We provide PoplarSeed-VIS for individual-seed phenotyping and identification of 
 
 The TIFF images are 230 × 230 pixels, with a standardized image scale of **20 μm/pixel** in both directions. The original `date.zip` contains 2,426 images and 80 TXT measurement reports, giving 2,506 files in total. The TXT files are separate from the image dataset.
 
-We organize the images by region, material and acquisition group. Folder suffixes such as `-1` and `-2` identify acquisition groups. The canonical image folders assign Shanxi to North China and Henan to Central China. We retain the original archive paths and file hashes in `data/image_manifest.csv` so that each image can be traced across the two folder structures.
+We organize the images by region, material and harvest batch. Folder suffixes distinguish seed harvest dates within a cultivar. The four NJFU 895 folders are harvest batches of the same cultivar. For materials with multiple batches, harvests were separated by several days; `-1` denotes an earlier harvest. Exact dates and numerical day intervals are not supplied. The canonical image folders assign Shanxi to North China and Henan to Central China. We retain the original archive paths and file hashes in `data/image_manifest.csv` so that each image can be traced across the two folder structures.
 
 ## Files and records
 
 - `images/`: 2,426 original TIFF images under the canonical region folders.
 - `masks/`: one automatically extracted binary PNG mask per image.
-- `data/image_manifest.csv`: image identifiers, material, acquisition group, region, paths, SHA256 hashes and training/test membership.
+- `data/batch_metadata.csv`: harvest-batch definitions and available relative timing.
+- `data/image_manifest.csv`: image identifiers, material, harvest batch, region, paths, SHA256 hashes and training/test membership.
 - `data/seed_features.csv`: per-image phenotype measurements, including all 92 classification descriptors.
 - `data/feature_dictionary.csv`: descriptor definitions and units.
 - `data/feature_groups.json` and `data/analysis_feature_sets.json`: input columns for individual, combined and reduced descriptor groups.
 - `data/tuning_cv_fold_manifest.csv`: five validation folds drawn exclusively from the training set.
 - `data/training_cv_folds.csv` and `data/fixed_training_cv_predictions.csv`: archived fixed-benchmark fold membership and out-of-fold predictions. These folds are distinct from the parameter-selection folds.
 - `data/primary_predictions.csv` and `data/batch_context_predictions.csv.gz`: image-level predictions.
-- `tables/`: descriptive statistics, resampling intervals, parameter-search results, retraining comparisons and acquisition-group outcomes.
+- `tables/`: descriptive statistics, resampling intervals, parameter-search results, retraining comparisons and harvest-batch outcomes.
 - `code/`: executable image processing, statistical analysis, SVM classification and plotting scripts.
 - `reference/tables/`: saved fixed-model benchmark tables for checking numerical reproduction.
 - `legacy_reports/`: the 80 archived TXT measurement reports with the suffix `LWACstats`.
@@ -67,19 +68,19 @@ python code/classification_revision.py
 python code/make_revision_figures.py
 ```
 
-The fixed allocation contains 1,940 training images and 486 test images. All descriptor comparisons use these same records. Fixed RBF SVMs use `C=50` and `gamma='scale'`. We reproduce fixed-benchmark cross-validation on its archived folds and provide the metrics and individual predictions. Parameter selection uses a separate allocation of five training-only folds, with standardization refitted within each fold and macro-F1 as the selection criterion. The saved test set is shared by the fixed, tuned and reduced-feature comparisons. Parameter tuning applies to the seven-material comparisons; the paired four-material acquisition-group benchmark retains fixed SVM settings.
+The fixed allocation contains 1,940 training images and 486 test images. All descriptor comparisons use these same records. Fixed RBF SVMs use `C=50` and `gamma='scale'`. We reproduce fixed-benchmark cross-validation on its archived folds and provide the metrics and individual predictions. Parameter selection uses a separate allocation of five training-only folds, with standardization refitted within each fold and macro-F1 as the selection criterion. The saved test set is shared by the fixed, tuned and reduced-feature comparisons. Parameter tuning applies to the seven-material comparisons; the paired four-material harvest-batch benchmark retains fixed SVM settings.
 
-We supply 2,000 hierarchical resamples and 1,000 block permutations per descriptor group. Resampling selects acquisition groups within each material, followed by images within the selected groups. We also evaluate the four materials with multiple acquisition groups using 32 overlapping holdout configurations and summarize the ten distinct held-out groups separately.
+We supply 2,000 hierarchical resamples and 1,000 block permutations per descriptor group. Resampling selects harvest batches within each material, followed by images within the selected groups. We also evaluate the four materials with multiple harvest batches using 32 overlapping holdout configurations and summarize the ten distinct held-out groups separately.
 
 ## Interpretation of the records
 
-Each material label combines a variety name and its recorded source. Variety and source effects cannot be separated in this collection. Acquisition-group identifiers describe the archived grouping; a complete correspondence to independent mother-tree or harvest samples is unavailable. The three LIAON materials each have one group, so their resampling intervals remain conditional on that observed group. The 32 holdout configurations share groups and are not independent biological replicates.
+Each material label combines a variety name and its recorded source. Variety and source effects cannot be separated in this collection. Batch identifiers refer to different seed harvest dates within each material. Mother-tree membership and batch-specific storage logs are unavailable, so harvest batches do not establish independent mother-tree replication. The three LIAON materials each have one group, so their resampling intervals remain conditional on that observed group. The 32 holdout configurations share batches and are not independent biological replicates. They evaluate transfer in both temporal directions, not prospective early-to-late prediction alone.
 
 ## Version and use
 
 We provide these files for academic and non-commercial research use under the conditions in `LICENSE.txt`.
 
-- Package version: `revision-2026-11-11-v3`.
+- Package version: `revision-2026-11-11-v4`.
 - Original archive commit: `190fbe59b25a12b5f4428e2e5869f9272b42da79`.
 - Original `date.zip` SHA256: `eef9ae00c5efb338121cddadfff70641e9d9aa3d65d00537b25ea4d1c7f7489d`.
 - The complete package SHA256 is provided in `Supplementary_Data_S1.sha256` alongside the ZIP.

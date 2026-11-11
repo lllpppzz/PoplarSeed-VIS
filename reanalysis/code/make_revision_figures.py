@@ -42,8 +42,8 @@ def distributions(number,traits,labels):
    means=D[D.variety==v].groupby('batch')[trait].mean().to_numpy()
    ax.scatter(i+np.linspace(-.23,.23,len(means)) if len(means)>1 else [i+.21],means,marker='D',s=26,facecolors=color,edgecolors='white',linewidths=.6,zorder=5)
   ax.set_xticks(range(7),T,rotation=30,ha='right');ax.set_ylabel(label);ax.grid(axis='y');ax.set_axisbelow(True)
- fig.legend(handles=[Line2D([],[],marker='o',markeredgecolor='#243740',markerfacecolor='white',color='none',label='Median and IQR'),Line2D([],[],marker='D',markerfacecolor='#596B75',color='none',label='Acquisition-batch mean')],loc='lower center',ncol=2,frameon=False,bbox_to_anchor=(.52,.015))
- save(fig,number,'Individual-image distributions, medians and interquartile ranges, with acquisition-batch means.',['data/seed_features.csv'])
+ fig.legend(handles=[Line2D([],[],marker='o',markeredgecolor='#243740',markerfacecolor='white',color='none',label='Median and IQR'),Line2D([],[],marker='D',markerfacecolor='#596B75',color='none',label='Harvest-batch mean')],loc='lower center',ncol=2,frameon=False,bbox_to_anchor=(.52,.015))
+ save(fig,number,'Individual-image distributions, medians and interquartile ranges, with harvest-batch means.',['data/seed_features.csv'])
 
 def hsv_histograms():
  fig,axes=plt.subplots(1,3,figsize=(7.2,3.6));fig.subplots_adjust(left=.08,right=.985,bottom=.26,top=.96,wspace=.29)
@@ -146,7 +146,7 @@ def batch_outcomes():
   ax.errorbar(r.mean_recall*100,i-.1,xerr=np.array([[(r.mean_recall-r.context_min)*100],[(r.context_max-r.mean_recall)*100]]),fmt='^',color=color,ms=7,capsize=2,lw=1.7)
   ax.errorbar(r.matched_mean*100,i+.1,xerr=np.array([[(r.matched_mean-r.matched_min)*100],[(r.matched_max-r.matched_mean)*100]]),fmt='o',markerfacecolor='white',color=color,ms=6,capsize=2,lw=1.2)
  ax.set_yticks(range(len(tab)),[r.held_batch.split(' ',1)[1] for r in tab.itertuples()]);ax.set_ylim(len(tab)-.5,-.5);ax.set_xlim(0,103);ax.set_xticks(range(0,101,20));ax.set_xlabel('Material-specific recall (%)');ax.grid(axis='x');ax.tick_params(axis='y',length=0);ax.spines['left'].set_visible(False)
- fig.legend(handles=[Line2D([],[],marker='^',color='#536973',label='Held-out batch'),Line2D([],[],marker='o',markerfacecolor='white',color='#536973',label='Matched random control')],loc='lower center',ncol=2,frameon=False,bbox_to_anchor=(.53,.015))
+ fig.legend(handles=[Line2D([],[],marker='^',color='#536973',label='Held-out harvest batch'),Line2D([],[],marker='o',markerfacecolor='white',color='#536973',label='Matched random control')],loc='lower center',ncol=2,frameon=False,bbox_to_anchor=(.53,.015))
  save(fig,16,'Ten held-out-batch outcomes for the combined model. Symbols show means and bars ranges across overlapping training contexts.',['tables/ten_batch_combined_with_controls.csv'])
 
 def main():

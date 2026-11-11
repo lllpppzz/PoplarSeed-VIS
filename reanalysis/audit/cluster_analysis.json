@@ -9,6 +9,6 @@
     "Each material occurs in one region; fixed effects represent material/source combinations.",
     "Three materials have only one batch; all-material intervals condition on those batches.",
     "Only 2\u20134 batches per replicated material; bootstrap intervals are sensitivity summaries, not robust population confidence bounds.",
-    "Acquisition groups do not establish independent biological replication."
+    "Harvest batches do not establish independent biological replication."
   ]
 }
