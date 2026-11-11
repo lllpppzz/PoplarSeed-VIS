@@ -24,6 +24,14 @@
   "test_never_used_for_selection": true,
   "bootstrap_samples": 2000,
   "permutations_per_group": 1000,
+  "fixed_benchmark_cv": {
+    "fold_manifest": "data/training_cv_folds.csv",
+    "tuning_fold_manifest_is_separate": true,
+    "test_images_used": false,
+    "fits": 20,
+    "combined_accuracy_mean": 0.9170103092783506,
+    "combined_accuracy_sd": 0.0164424102141614
+  },
   "batch_results": {
     "four_materials": [
       "HENAN ZL",
@@ -38,5 +46,5 @@
     "all_original_scores_reproduced": true,
     "per_batch_values_are_context_averages_not_independent_runs": true
   },
-  "wall_seconds": 31.62418818473816
+  "wall_seconds": 32.22525405883789
 }

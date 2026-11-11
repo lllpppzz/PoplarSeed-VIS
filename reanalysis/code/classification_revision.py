@@ -11,7 +11,7 @@ import numpy as np,pandas as pd
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-from sklearn.model_selection import GridSearchCV,StratifiedKFold
+from sklearn.model_selection import GridSearchCV,StratifiedKFold,train_test_split
 from sklearn.metrics import accuracy_score,balanced_accuracy_score,f1_score,confusion_matrix
 from joblib import parallel_backend,dump
 from threadpoolctl import threadpool_limits
@@ -23,6 +23,30 @@ def model(C=50.,gamma='scale'):
 def metrics(y,p,labels):
  cm=confusion_matrix(y,p,labels=labels);den=cm.sum(axis=0)+cm.sum(axis=1)
  return {'accuracy':float(np.mean(y==p)),'balanced_accuracy':float(np.mean(np.diag(cm)/cm.sum(axis=1))), 'macro_f1':float(np.mean(np.divide(2*np.diag(cm),den,out=np.zeros(len(labels)),where=den>0)))}
+
+def run_fixed_cv(d,groups):
+ """Reproduce the archived fixed-benchmark folds, distinct from tuning folds."""
+ train,test=train_test_split(np.arange(len(d)),test_size=.2,random_state=SEED,stratify=d.batch)
+ assert set(train)==set(np.flatnonzero(d.split.to_numpy()=='train'))
+ archive=pd.read_csv(WORK/'data/training_cv_folds.csv').set_index('seed_id').validation_fold
+ assert set(archive.index)==set(d.seed_id.iloc[train]) and not set(archive.index)&set(d.seed_id.iloc[test])
+ folds=list(StratifiedKFold(5,shuffle=True,random_state=SEED).split(train,d.variety.iloc[train]))
+ labels=sorted(d.variety.unique());y=pd.Categorical(d.variety,categories=labels).codes
+ rows=[];predictions=[]
+ for name,cols in groups.items():
+  X=d[cols].to_numpy()
+  for fold,(tr,va) in enumerate(folds,1):
+   ti=train[tr];vi=train[va]
+   assert set(d.seed_id.iloc[vi])==set(archive[archive==fold].index)
+   fitted=model().fit(X[ti],y[ti]);pr=fitted.predict(X[vi])
+   assert np.allclose(fitted.named_steps['scaler'].mean_,X[ti].mean(axis=0))
+   rows.append({'model':name,'fold':fold,'training_n':len(ti),'validation_n':len(vi),**metrics(y[vi],pr,np.arange(len(labels)))})
+   for index,pv in zip(vi,pr):predictions.append({'seed_id':d.seed_id.iloc[index],'fold':fold,'model':name,'variety':d.variety.iloc[index],'prediction':labels[pv],'correct':int(pv==y[index])})
+ result=pd.DataFrame(rows);result.to_csv(WORK/'tables/fixed_training_cv_metrics.csv',index=False)
+ pd.DataFrame(predictions).to_csv(WORK/'data/fixed_training_cv_predictions.csv',index=False)
+ summary=result.groupby('model')[['accuracy','macro_f1','balanced_accuracy']].agg(['mean','std'])
+ summary.to_csv(WORK/'tables/fixed_training_cv_summary.csv')
+ return {'fold_manifest':'data/training_cv_folds.csv','tuning_fold_manifest_is_separate':True,'test_images_used':False,'fits':len(rows),'combined_accuracy_mean':float(summary.loc['Combined',('accuracy','mean')]),'combined_accuracy_sd':float(summary.loc['Combined',('accuracy','std')])}
 
 def run_primary(d,groups):
  train=np.flatnonzero(d.split.to_numpy()=='train');test=np.flatnonzero(d.split.to_numpy()=='test')
@@ -140,9 +164,9 @@ def run_batches(d,groups):
 
 def main():
  start=time.time();d=pd.read_csv(WORK/'data/seed_features.csv');groups=json.loads((WORK/'data/feature_groups.json').read_text())
- base=run_primary(d,groups);batches=run_batches(d,groups)
+ fixed_cv=run_fixed_cv(d,groups);base=run_primary(d,groups);batches=run_batches(d,groups)
  pd.DataFrame(base).to_csv(WORK/'tables/majority_baselines.csv',index=False)
- result={'passed':True,'grid':GRID,'selection_metric':'macro-F1','selection_folds':5,'scaling':'fit on each training fold only','holdout_unchanged':True,'test_never_used_for_selection':True,'bootstrap_samples':B,'permutations_per_group':N_PERM,'batch_results':batches,'wall_seconds':time.time()-start}
+ result={'passed':True,'grid':GRID,'selection_metric':'macro-F1','selection_folds':5,'scaling':'fit on each training fold only','holdout_unchanged':True,'test_never_used_for_selection':True,'bootstrap_samples':B,'permutations_per_group':N_PERM,'fixed_benchmark_cv':fixed_cv,'batch_results':batches,'wall_seconds':time.time()-start}
  (WORK/'audit/classification_analysis.json').write_text(json.dumps(result,indent=2),encoding='utf-8');print(json.dumps(result,indent=2),flush=True)
 if __name__=='__main__':
  with threadpool_limits(limits=1):main()

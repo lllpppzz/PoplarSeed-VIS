@@ -28,6 +28,7 @@ We organize the images by region, material and acquisition group. Folder suffixe
 - `data/feature_dictionary.csv`: descriptor definitions and units.
 - `data/feature_groups.json` and `data/analysis_feature_sets.json`: input columns for individual, combined and reduced descriptor groups.
 - `data/tuning_cv_fold_manifest.csv`: five validation folds drawn exclusively from the training set.
+- `data/training_cv_folds.csv` and `data/fixed_training_cv_predictions.csv`: archived fixed-benchmark fold membership and out-of-fold predictions. These folds are distinct from the parameter-selection folds.
 - `data/primary_predictions.csv` and `data/batch_context_predictions.csv.gz`: image-level predictions.
 - `tables/`: descriptive statistics, resampling intervals, parameter-search results, retraining comparisons and acquisition-group outcomes.
 - `code/`: executable image processing, statistical analysis, SVM classification and plotting scripts.
@@ -56,7 +57,7 @@ python code/classification_revision.py
 python code/make_revision_figures.py
 ```
 
-The fixed allocation contains 1,940 training images and 486 test images. All descriptor comparisons use these same records. Fixed RBF SVMs use `C=50` and `gamma='scale'`. Parameter selection uses five training-only folds, with standardization refitted within each fold and macro-F1 as the selection criterion. The saved test set is shared by the fixed, tuned and reduced-feature comparisons.
+The fixed allocation contains 1,940 training images and 486 test images. All descriptor comparisons use these same records. Fixed RBF SVMs use `C=50` and `gamma='scale'`. We reproduce fixed-benchmark cross-validation on its archived folds and provide the metrics and individual predictions. Parameter selection uses a separate allocation of five training-only folds, with standardization refitted within each fold and macro-F1 as the selection criterion. The saved test set is shared by the fixed, tuned and reduced-feature comparisons. Parameter tuning applies to the seven-material comparisons; the paired four-material acquisition-group benchmark retains fixed SVM settings.
 
 We supply 2,000 hierarchical resamples and 1,000 block permutations per descriptor group. Resampling selects acquisition groups within each material, followed by images within the selected groups. We also evaluate the four materials with multiple acquisition groups using 32 overlapping holdout configurations and summarize the ten distinct held-out groups separately.
 
@@ -68,7 +69,7 @@ Each material label combines a variety name and its recorded source. Variety and
 
 We provide these files for academic and non-commercial research use under the conditions in `LICENSE.txt`.
 
-- Package version: `revision-2026-11-11-v2`.
+- Package version: `revision-2026-11-11-v3`.
 - Original archive commit: `190fbe59b25a12b5f4428e2e5869f9272b42da79`.
 - Original `date.zip` SHA256: `eef9ae00c5efb338121cddadfff70641e9d9aa3d65d00537b25ea4d1c7f7489d`.
 - The complete package SHA256 is provided in `Supplementary_Data_S1.sha256` alongside the ZIP.

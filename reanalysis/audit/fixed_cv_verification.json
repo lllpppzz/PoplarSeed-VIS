@@ -1,0 +1,9 @@
+{
+  "fold_manifest": "data/training_cv_folds.csv",
+  "tuning_fold_manifest_is_separate": true,
+  "test_images_used": false,
+  "fits": 20,
+  "combined_accuracy_mean": 0.9170103092783506,
+  "combined_accuracy_sd": 0.0164424102141614,
+  "all_20_folds_reproduced": true
+}
