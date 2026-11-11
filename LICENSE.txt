@@ -1,4 +1,3 @@
-This dataset is released for academic and non-commercial research use only.
+We provide PoplarSeed-VIS for academic and non-commercial research use only.
 
-These are the use conditions stated by the source repository. The reanalysis package does not assert a new Creative Commons or OSI license or extend permissions beyond the stated conditions.
-Source: https://github.com/lllpppzz/PoplarSeed-VIS
+Repository: https://github.com/lllpppzz/PoplarSeed-VIS

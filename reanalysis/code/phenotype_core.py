@@ -22,7 +22,7 @@ OUT = Path(__file__).resolve().parents[1]
 ROOT = OUT.parent
 CALIBRATION = {'method':'fixed_resampled_image_scale',
                'pixel_size_x_um':20.0, 'pixel_size_y_um':20.0,
-               'source':'Author-specified output-image scale, 2026-10-19',
+               'source':'Standardized output-image scale, 20 micrometres per pixel',
                'version':'fixed_20um_v1',
                'assumption':'Exported images have fixed 20 micrometre pixel spacing on both axes.',
                'conversion':'Lengths use 0.020 mm/pixel; areas use 0.0004 mm2/pixel2.',
