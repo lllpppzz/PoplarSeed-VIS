@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "grid": {
+    "svc__C": [
+      0.1,
+      1,
+      10,
+      50,
+      100
+    ],
+    "svc__gamma": [
+      0.0001,
+      0.001,
+      0.01,
+      0.1,
+      1.0,
+      "scale"
+    ]
+  },
+  "selection_metric": "macro-F1",
+  "selection_folds": 5,
+  "scaling": "fit on each training fold only",
+  "holdout_unchanged": true,
+  "test_never_used_for_selection": true,
+  "bootstrap_samples": 2000,
+  "permutations_per_group": 1000,
+  "batch_results": {
+    "four_materials": [
+      "HENAN ZL",
+      "NJFU 895",
+      "SHANXI QZ",
+      "SHANXI XY"
+    ],
+    "unique_seeds": 1937,
+    "unique_batches": 10,
+    "overlapping_combinations": 32,
+    "four_class_corpus_majority_fraction": 0.403200826019618,
+    "all_original_scores_reproduced": true,
+    "per_batch_values_are_context_averages_not_independent_runs": true
+  },
+  "wall_seconds": 31.62418818473816
+}

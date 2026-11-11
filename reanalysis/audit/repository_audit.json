@@ -1,0 +1,15 @@
+{
+  "commit": "190fbe59b25a12b5f4428e2e5869f9272b42da79",
+  "archive_sha256": "eef9ae00c5efb338121cddadfff70641e9d9aa3d65d00537b25ea4d1c7f7489d",
+  "extension_counts": {
+    ".tif": 2426,
+    ".txt": 80
+  },
+  "n_non_directory_files": 2506,
+  "n_archive_images": 2426,
+  "n_local_images": 2426,
+  "all_image_payloads_identical_to_local": true,
+  "local_only_payloads": [],
+  "archive_only_payloads": [],
+  "explanation": "2506 counts all files: 2426 TIFF images plus 80 TXT reports; no 80-image exclusion"
+}

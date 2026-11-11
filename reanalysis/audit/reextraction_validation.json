@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "images": 2426,
+  "descriptors": 92,
+  "maximum_absolute_difference": 7.105427357601002e-15,
+  "scale_um_per_pixel": 20,
+  "foreground_masks_generated": 2426,
+  "wall_seconds": 23.96123743057251
+}

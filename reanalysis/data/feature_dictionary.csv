@@ -1,0 +1,105 @@
+﻿field,family,unit,used_for_classification,definition
+seed_id,元数据,text,False,Source image metadata
+relative_path,元数据,text,False,Source image metadata
+variety,元数据,text,False,Source image metadata
+batch,元数据,text,False,Source image metadata
+region,元数据,text,False,Source image metadata
+image_sha256,元数据,text,False,Source image metadata
+pixel_sha256,元数据,text,False,Source image metadata
+length_px,像素几何,px,False,Uncalibrated image-space measurement; retained for audit
+width_px,像素几何,px,False,Uncalibrated image-space measurement; retained for audit
+area_px2,像素几何,px2,False,Uncalibrated image-space measurement; retained for audit
+perimeter_px,像素几何,px,False,Uncalibrated image-space measurement; retained for audit
+length_mm,形态,mm,True,"Minimum-area rectangle long side with pixel-support correction, multiplied by fixed 0.020 mm/pixel"
+width_mm,形态,mm,True,"Minimum-area rectangle short side with pixel-support correction, multiplied by fixed 0.020 mm/pixel"
+area_mm2,形态,mm2,True,Foreground pixel count multiplied by fixed 0.0004 mm2/pixel2
+perimeter_mm,形态,mm,True,Four-direction Crofton perimeter multiplied by fixed 0.020 mm/pixel
+aspect_ratio,形态,dimensionless,True,L/W
+circularity,形态,dimensionless,True,4*pi*A/P^2
+compactness,形态,dimensionless,True,"A/(L*W), rectangular compactness"
+solidity,形态,dimensionless,True,Area / convex-hull area
+eccentricity,形态,dimensionless,True,Eccentricity of second-moment ellipse
+roundness,形态,dimensionless,True,4*A/(pi*L^2)
+equivalent_diameter_mm,形态,mm,True,sqrt(4*foreground pixel count/pi) multiplied by fixed 0.020 mm/pixel
+h_circ_mean_deg,颜色,degree,False,"atan2(mean sin H,mean cos H) modulo 360; descriptive only"
+h_circ_sd_deg,颜色,degree,True,"sqrt(-2 ln R) converted to degrees, R is hue resultant length"
+h_sin_mean,颜色,dimensionless,True,Mean sine of foreground hue angles
+h_cos_mean,颜色,dimensionless,True,Mean cosine of foreground hue angles
+s_mean,颜色,0-1,True,Mean foreground saturation
+s_sd,颜色,0-1,True,Sample SD of foreground saturation
+v_mean,颜色,0-1,True,Mean foreground value
+v_sd,颜色,0-1,True,Sample SD of foreground value
+h_hist_00,颜色,probability,True,"Normalized H histogram bin 0, [0, 20], fixed 18 bins; last bin includes right endpoint"
+h_hist_01,颜色,probability,True,"Normalized H histogram bin 1, [20, 40], fixed 18 bins; last bin includes right endpoint"
+h_hist_02,颜色,probability,True,"Normalized H histogram bin 2, [40, 60], fixed 18 bins; last bin includes right endpoint"
+h_hist_03,颜色,probability,True,"Normalized H histogram bin 3, [60, 80], fixed 18 bins; last bin includes right endpoint"
+h_hist_04,颜色,probability,True,"Normalized H histogram bin 4, [80, 100], fixed 18 bins; last bin includes right endpoint"
+h_hist_05,颜色,probability,True,"Normalized H histogram bin 5, [100, 120], fixed 18 bins; last bin includes right endpoint"
+h_hist_06,颜色,probability,True,"Normalized H histogram bin 6, [120, 140], fixed 18 bins; last bin includes right endpoint"
+h_hist_07,颜色,probability,True,"Normalized H histogram bin 7, [140, 160], fixed 18 bins; last bin includes right endpoint"
+h_hist_08,颜色,probability,True,"Normalized H histogram bin 8, [160, 180], fixed 18 bins; last bin includes right endpoint"
+h_hist_09,颜色,probability,True,"Normalized H histogram bin 9, [180, 200], fixed 18 bins; last bin includes right endpoint"
+h_hist_10,颜色,probability,True,"Normalized H histogram bin 10, [200, 220], fixed 18 bins; last bin includes right endpoint"
+h_hist_11,颜色,probability,True,"Normalized H histogram bin 11, [220, 240], fixed 18 bins; last bin includes right endpoint"
+h_hist_12,颜色,probability,True,"Normalized H histogram bin 12, [240, 260], fixed 18 bins; last bin includes right endpoint"
+h_hist_13,颜色,probability,True,"Normalized H histogram bin 13, [260, 280], fixed 18 bins; last bin includes right endpoint"
+h_hist_14,颜色,probability,True,"Normalized H histogram bin 14, [280, 300], fixed 18 bins; last bin includes right endpoint"
+h_hist_15,颜色,probability,True,"Normalized H histogram bin 15, [300, 320], fixed 18 bins; last bin includes right endpoint"
+h_hist_16,颜色,probability,True,"Normalized H histogram bin 16, [320, 340], fixed 18 bins; last bin includes right endpoint"
+h_hist_17,颜色,probability,True,"Normalized H histogram bin 17, [340, 360], fixed 18 bins; last bin includes right endpoint"
+s_hist_00,颜色,probability,True,"Normalized S histogram bin 0, [0, 0.0625], fixed 16 bins; last bin includes right endpoint"
+s_hist_01,颜色,probability,True,"Normalized S histogram bin 1, [0.0625, 0.125], fixed 16 bins; last bin includes right endpoint"
+s_hist_02,颜色,probability,True,"Normalized S histogram bin 2, [0.125, 0.1875], fixed 16 bins; last bin includes right endpoint"
+s_hist_03,颜色,probability,True,"Normalized S histogram bin 3, [0.1875, 0.25], fixed 16 bins; last bin includes right endpoint"
+s_hist_04,颜色,probability,True,"Normalized S histogram bin 4, [0.25, 0.3125], fixed 16 bins; last bin includes right endpoint"
+s_hist_05,颜色,probability,True,"Normalized S histogram bin 5, [0.3125, 0.375], fixed 16 bins; last bin includes right endpoint"
+s_hist_06,颜色,probability,True,"Normalized S histogram bin 6, [0.375, 0.4375], fixed 16 bins; last bin includes right endpoint"
+s_hist_07,颜色,probability,True,"Normalized S histogram bin 7, [0.4375, 0.5], fixed 16 bins; last bin includes right endpoint"
+s_hist_08,颜色,probability,True,"Normalized S histogram bin 8, [0.5, 0.5625], fixed 16 bins; last bin includes right endpoint"
+s_hist_09,颜色,probability,True,"Normalized S histogram bin 9, [0.5625, 0.625], fixed 16 bins; last bin includes right endpoint"
+s_hist_10,颜色,probability,True,"Normalized S histogram bin 10, [0.625, 0.6875], fixed 16 bins; last bin includes right endpoint"
+s_hist_11,颜色,probability,True,"Normalized S histogram bin 11, [0.6875, 0.75], fixed 16 bins; last bin includes right endpoint"
+s_hist_12,颜色,probability,True,"Normalized S histogram bin 12, [0.75, 0.8125], fixed 16 bins; last bin includes right endpoint"
+s_hist_13,颜色,probability,True,"Normalized S histogram bin 13, [0.8125, 0.875], fixed 16 bins; last bin includes right endpoint"
+s_hist_14,颜色,probability,True,"Normalized S histogram bin 14, [0.875, 0.9375], fixed 16 bins; last bin includes right endpoint"
+s_hist_15,颜色,probability,True,"Normalized S histogram bin 15, [0.9375, 1], fixed 16 bins; last bin includes right endpoint"
+v_hist_00,颜色,probability,True,"Normalized V histogram bin 0, [0, 0.0625], fixed 16 bins; last bin includes right endpoint"
+v_hist_01,颜色,probability,True,"Normalized V histogram bin 1, [0.0625, 0.125], fixed 16 bins; last bin includes right endpoint"
+v_hist_02,颜色,probability,True,"Normalized V histogram bin 2, [0.125, 0.1875], fixed 16 bins; last bin includes right endpoint"
+v_hist_03,颜色,probability,True,"Normalized V histogram bin 3, [0.1875, 0.25], fixed 16 bins; last bin includes right endpoint"
+v_hist_04,颜色,probability,True,"Normalized V histogram bin 4, [0.25, 0.3125], fixed 16 bins; last bin includes right endpoint"
+v_hist_05,颜色,probability,True,"Normalized V histogram bin 5, [0.3125, 0.375], fixed 16 bins; last bin includes right endpoint"
+v_hist_06,颜色,probability,True,"Normalized V histogram bin 6, [0.375, 0.4375], fixed 16 bins; last bin includes right endpoint"
+v_hist_07,颜色,probability,True,"Normalized V histogram bin 7, [0.4375, 0.5], fixed 16 bins; last bin includes right endpoint"
+v_hist_08,颜色,probability,True,"Normalized V histogram bin 8, [0.5, 0.5625], fixed 16 bins; last bin includes right endpoint"
+v_hist_09,颜色,probability,True,"Normalized V histogram bin 9, [0.5625, 0.625], fixed 16 bins; last bin includes right endpoint"
+v_hist_10,颜色,probability,True,"Normalized V histogram bin 10, [0.625, 0.6875], fixed 16 bins; last bin includes right endpoint"
+v_hist_11,颜色,probability,True,"Normalized V histogram bin 11, [0.6875, 0.75], fixed 16 bins; last bin includes right endpoint"
+v_hist_12,颜色,probability,True,"Normalized V histogram bin 12, [0.75, 0.8125], fixed 16 bins; last bin includes right endpoint"
+v_hist_13,颜色,probability,True,"Normalized V histogram bin 13, [0.8125, 0.875], fixed 16 bins; last bin includes right endpoint"
+v_hist_14,颜色,probability,True,"Normalized V histogram bin 14, [0.875, 0.9375], fixed 16 bins; last bin includes right endpoint"
+v_hist_15,颜色,probability,True,"Normalized V histogram bin 15, [0.9375, 1], fixed 16 bins; last bin includes right endpoint"
+glcm_contrast_d1,纹理,32-level grey units,True,"sum P(i,j)*(i-j)^2; mean across four symmetric masked GLCMs; lattice step=1"
+glcm_dissimilarity_d1,纹理,32-level grey units,True,"sum P(i,j)*abs(i-j); mean across four symmetric masked GLCMs; lattice step=1"
+glcm_homogeneity_d1,纹理,dimensionless,True,"sum P(i,j)/(1+(i-j)^2); mean across four symmetric masked GLCMs; lattice step=1"
+glcm_asm_d1,纹理,dimensionless,True,"sum P(i,j)^2; mean across four symmetric masked GLCMs; lattice step=1"
+glcm_energy_d1,纹理,dimensionless,True,sqrt(ASM); mean across four symmetric masked GLCMs; lattice step=1
+glcm_correlation_d1,纹理,dimensionless,True,grey-level covariance / product of SDs; 1 for degenerate constant levels; mean across four symmetric masked GLCMs; lattice step=1
+glcm_entropy_d1,纹理,bit,True,"-sum P(i,j)*log2(P(i,j)); mean across four symmetric masked GLCMs; lattice step=1"
+glcm_contrast_d2,纹理,32-level grey units,True,"sum P(i,j)*(i-j)^2; mean across four symmetric masked GLCMs; lattice step=2"
+glcm_dissimilarity_d2,纹理,32-level grey units,True,"sum P(i,j)*abs(i-j); mean across four symmetric masked GLCMs; lattice step=2"
+glcm_homogeneity_d2,纹理,dimensionless,True,"sum P(i,j)/(1+(i-j)^2); mean across four symmetric masked GLCMs; lattice step=2"
+glcm_asm_d2,纹理,dimensionless,True,"sum P(i,j)^2; mean across four symmetric masked GLCMs; lattice step=2"
+glcm_energy_d2,纹理,dimensionless,True,sqrt(ASM); mean across four symmetric masked GLCMs; lattice step=2
+glcm_correlation_d2,纹理,dimensionless,True,grey-level covariance / product of SDs; 1 for degenerate constant levels; mean across four symmetric masked GLCMs; lattice step=2
+glcm_entropy_d2,纹理,bit,True,"-sum P(i,j)*log2(P(i,j)); mean across four symmetric masked GLCMs; lattice step=2"
+lbp_00,纹理,probability,True,"Uniform LBP histogram bin 0; P=8, R=1, 3x3-eroded interior"
+lbp_01,纹理,probability,True,"Uniform LBP histogram bin 1; P=8, R=1, 3x3-eroded interior"
+lbp_02,纹理,probability,True,"Uniform LBP histogram bin 2; P=8, R=1, 3x3-eroded interior"
+lbp_03,纹理,probability,True,"Uniform LBP histogram bin 3; P=8, R=1, 3x3-eroded interior"
+lbp_04,纹理,probability,True,"Uniform LBP histogram bin 4; P=8, R=1, 3x3-eroded interior"
+lbp_05,纹理,probability,True,"Uniform LBP histogram bin 5; P=8, R=1, 3x3-eroded interior"
+lbp_06,纹理,probability,True,"Uniform LBP histogram bin 6; P=8, R=1, 3x3-eroded interior"
+lbp_07,纹理,probability,True,"Uniform LBP histogram bin 7; P=8, R=1, 3x3-eroded interior"
+lbp_08,纹理,probability,True,"Uniform LBP histogram bin 8; P=8, R=1, 3x3-eroded interior"
+lbp_09,纹理,probability,True,"Uniform LBP histogram bin 9; P=8, R=1, 3x3-eroded interior"

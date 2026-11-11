@@ -1,0 +1,46 @@
+{
+  "n_images": 2426,
+  "extension_counts": {
+    ".tif": 2426,
+    ".txt": 80
+  },
+  "batch_sizes": {
+    "HENAN ZL-1": 156,
+    "HENAN ZL-2": 232,
+    "LIAON LHY-1": 192,
+    "LIAON MZHY-1": 150,
+    "LIAON XQY-1": 147,
+    "NJFU 895-1": 196,
+    "NJFU 895-2": 219,
+    "NJFU 895-3": 207,
+    "NJFU 895-4": 159,
+    "SHANXI QZ-1": 178,
+    "SHANXI QZ-2": 200,
+    "SHANXI XY-1": 234,
+    "SHANXI XY-2": 156
+  },
+  "corrected_region_counts": {
+    "Central China": 388,
+    "East China": 781,
+    "North China": 768,
+    "Northeast China": 489
+  },
+  "train_test": {
+    "train": 1940,
+    "test": 486
+  },
+  "features": {
+    "Morphology": 11,
+    "Color": 57,
+    "Texture": 24,
+    "Combined": 92
+  },
+  "source_files_match_existing_features": true,
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.2",
+    "scipy": "1.13.1",
+    "sklearn": "1.5.1",
+    "statsmodels": "0.14.2"
+  }
+}

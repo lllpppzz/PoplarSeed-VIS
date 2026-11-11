@@ -1,0 +1,10 @@
+{
+  "title": "PoplarSeed-VIS reproducible reanalysis",
+  "version": "revision-2026-11-11",
+  "source_commit": "190fbe59b25a12b5f4428e2e5869f9272b42da79",
+  "source_archive_sha256": "eef9ae00c5efb338121cddadfff70641e9d9aa3d65d00537b25ea4d1c7f7489d",
+  "n_images": 2426,
+  "n_materials": 7,
+  "n_batches": 13,
+  "scale_um_per_pixel": 20
+}

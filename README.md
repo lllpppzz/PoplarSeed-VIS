@@ -1,135 +1,81 @@
-# PoplarSeed-VIS
+# PoplarSeed-VIS reanalysis materials
 
-**A multi-regional poplar seed visual image dataset for phenotypic analysis**  
-**多地区杨树种子可视化图像数据集（用于表型分析）**
+## Download and reproduce
 
----
+- [Complete reanalysis package](Supplementary_Data_S1.zip) with images, masks, descriptors, exact splits and code.
+- [SHA256 checksum](Supplementary_Data_S1.sha256).
+- [Browse the analysis code](reanalysis/code) and [metadata and data splits](reanalysis/data).
+- [Original archive](date.zip), preserved unchanged for provenance.
 
-## Overview | 数据集简介
+For a self-contained run, unpack Supplementary_Data_S1.zip and follow its README. The browsable reanalysis directory provides the same scripts and numeric records; image and mask payloads are in the complete package.
 
-PoplarSeed-VIS is a high-resolution TIF image dataset of poplar (*Populus* spp.) seeds collected from four major geographic regions of China. Each seed sample is accompanied by morphological statistics measured via imaging analysis software (LWAC). The dataset supports research in seed morphology, species identification, and machine learning-based phenotypic classification.
 
-本数据集收录了中国四大地理区域杨树种子的高分辨率 TIF 图像，每张图像附有通过图像分析软件（LWAC）采集的形态学统计数据，适用于种子形态分析、品种识别及机器学习表型分类研究。
+This package supports the revised analysis of 2,426 single-seed RGB images. It contains seven material labels, 13 archive-defined acquisition batches and four source regions. Each label combines variety identity and source; region and variety effects cannot be separated. Batches are retained as acquisition groups and do not establish independent mother-tree replication.
 
----
+## Original archive and corrected counts
 
-## Dataset Structure | 数据集结构
+Original repository: https://github.com/lllpppzz/PoplarSeed-VIS
+Immutable source commit: 190fbe59b25a12b5f4428e2e5869f9272b42da79
+Original `date.zip` SHA256: eef9ae00c5efb338121cddadfff70641e9d9aa3d65d00537b25ea4d1c7f7489d
 
-```
-date/
-├── Central China/          # 华中
-│   ├── SHANXI QZ-1/        # 山西群众杨 - 1
-│   ├── SHANXI QZ-2/        # 山西群众杨 - 2
-│   ├── SHANXI XY-1/        # 山西小叶杨 - 1
-│   └── SHANXI XY-2/        # 山西小叶杨 - 2
-├── East China/             # 华东
-│   ├── NJFU 895-1/         # 南京林业大学 895 杨 - 1
-│   ├── NJFU 895-2/         # 南京林业大学 895 杨 - 2
-│   ├── NJFU 895-3/         # 南京林业大学 895 杨 - 3
-│   └── NJFU 895-4/         # 南京林业大学 895 杨 - 4
-├── North China/            # 华北
-│   ├── HENAN ZL-1/         # 河南中林杨 - 1
-│   └── HENAN ZL-2/         # 河南中林杨 - 2
-└── Northeast China/        # 东北
-    ├── LIAON LHY-1/        # 辽宁辽胡杨 - 1
-    ├── LIAON MZHY-1/       # 辽宁美洲黑杨 - 1
-    └── LIAON XQY-1/        # 辽宁小青杨 - 1
-```
+The original ZIP contains **2,426 TIFF images and 80 TXT measurement reports**, or 2,506 files in total. The earlier 2,506-image statement counted the TXT reports as images. No 80-image exclusion was applied. The 13 numbered folders are batches, not 13 varieties. Every TIFF in this package is byte-identical to its source image.
 
-Each variety folder contains:  
-每个品种文件夹包含：
-- **`*.tif`** — Single-seed image (high-resolution TIF format) | 单粒种子图像（高分辨率 TIF 格式）
-- **`*LWACstats.txt`** — Morphological statistics for each batch | 每批次形态学统计数据
+Regional metadata are corrected here: SHANXI QZ and SHANXI XY belong to North China; HENAN ZL belongs to Central China. Liaoning materials belong to Northeast China and NJFU 895 to East China. Original paths and their legacy region labels remain in `data/image_manifest.csv` to make every change traceable. The canonical `images/` tree uses corrected regions.
 
----
+| Region | Material | Images | Batches |
+|---|---|---:|---:|
+| North China | SHANXI QZ | 378 | 2 |
+| North China | SHANXI XY | 390 | 2 |
+| Central China | HENAN ZL | 388 | 2 |
+| East China | NJFU 895 | 781 | 4 |
+| Northeast China | LIAON LHY | 192 | 1 |
+| Northeast China | LIAON MZHY | 150 | 1 |
+| Northeast China | LIAON XQY | 147 | 1 |
+| Total | 7 materials | 2426 | 13 |
 
-## Statistics | 数据统计
+## Materials and provenance
 
-| Item | Value |
-|------|-------|
-| Total images | 2,506 |
-| Image format | TIF |
-| Regions | 4 |
-| Varieties | 13 |
-| Collection date | September 2024 |
+The authors identify the material collection as the same collection described by Wang et al., *International Journal of Agricultural and Biological Engineering* 19(1), 197–212 (2026), doi:10.25165/j.ijabe.20261901.9850. That study already published a larger image resource and investigated morphological and chromatic measurements. This release is a curated reanalysis, not a claim of independent recollection or entirely new images.
 
----
+The collection dates reported for the source materials are in May 2024. September 2024 timestamps occur in legacy report filenames; their role as acquisition or export times is not established. Mother-tree counts, a complete mapping from the 13 folders to independent harvest lots, and per-batch temperature, humidity and storage-duration logs are unavailable in the archive. No additional identity certification or molecular verification is claimed.
 
-## Varieties | 品种信息
+The 80 files in `legacy_reports/` carry the filename suffix `LWACstats`. They are legacy numerical measurement reports, not images or training records for this reanalysis. The full software-name expansion and version are not documented in the archived files. Current descriptors and masks were recomputed from the TIFF pixels with the supplied Python code; none of the 80 reports was used as an input feature or measurement ground truth.
 
-| Region | Code | Chinese Name | Poplar Species |
-|--------|------|-------------|----------------|
-| Central China | SHANXI QZ-1/2 | 山西群众杨 | *Populus* × *qunzhong* |
-| Central China | SHANXI XY-1/2 | 山西小叶杨 | *Populus simonii* |
-| East China | NJFU 895-1/2/3/4 | 南京林业大学 895 杨 | *Populus* × *euramericana* cl. '895' |
-| North China | HENAN ZL-1/2 | 河南中林杨 | *Populus* × *zhonglin* |
-| Northeast China | LIAON LHY-1 | 辽宁辽胡杨 | *Populus euphratica* (辽宁种源) |
-| Northeast China | LIAON MZHY-1 | 辽宁美洲黑杨 | *Populus deltoides* |
-| Northeast China | LIAON XQY-1 | 辽宁小青杨 | *Populus pseudo-simonii* |
+## Package contents
 
----
+- `images/`: original 230 × 230 TIFF pixels under corrected region folders.
+- `masks/`: 2,426 automatically extracted binary PNG masks.
+- `data/image_manifest.csv`: identifiers, material, batch, region, exact paths, hashes and fixed train/test membership.
+- `data/seed_features.csv`: complete per-image records, 92 classifier descriptors and additional descriptive measurements.
+- `data/feature_groups.json` and `analysis_feature_sets.json`: exact input columns including 81-, 35- and 68-descriptor retraining ablations.
+- `data/tuning_cv_fold_manifest.csv`: five training-only validation folds; no held-out test seeds appear here.
+- `data/primary_predictions.csv` and `batch_context_predictions.csv.gz`: individual predictions for all reported settings.
+- `tables/`: full numerical results, uncertainty summaries, tuning search scores and ten held-out-batch outcome summaries.
+- `code/`: feature extraction, cluster-resampling/REML analysis, SVM fits, ablations, permutations and figure generation.
+- `reference/tables/`: earlier fixed-benchmark results used solely to check numerical reproduction, not to select new parameters.
+- `audit/`: integrity checks and exact archive inventories.
+- `SHA256SUMS.txt`: checksum of each delivered package file.
 
-## File Naming Convention | 文件命名规则
+## Reproduction
 
-**TIF images:**
-```
-{VarietyCode}-{index}.tif
-e.g., SHANXI QZ-1-1.tif, SHANXI QZ-1-100.tif
-```
-
-**Statistics files (LWACstats.txt):**
-```
-{ChineseName}{timestamp}LWACstats.txt
-e.g., 山西群众场 120240907162325960LWACstats.txt
-```
-The timestamp format is `YYYYMMDDHHMMSSMS`.
-
----
-
-## Data Format | 数据格式
-
-- **Images**: Single-channel or multi-channel TIF, approximately 159 KB per image
-- **Stats files**: Text format containing morphological measurements (Length, Width, Area, Color, etc.) exported by LWAC imaging software
-
----
-
-## Download | 数据下载
-
-The full dataset is packaged as `date.zip` in this repository.
-
-```bash
-git clone https://github.com/lllpppzz/PoplarSeed-VIS.git
-cd PoplarSeed-VIS
-unzip date.zip
-```
-
----
-
-## Intended Use | 用途
-
-- Seed morphology and phenotypic analysis | 种子形态与表型分析
-- Multi-variety poplar seed classification | 多品种杨树种子分类
-- Machine learning / deep learning training dataset | 机器学习 / 深度学习训练数据
-- Geographic provenance identification | 地理种源鉴别研究
-
----
-
-## Citation | 引用
-
-If you use this dataset in your research, please cite it as:
+Python 3.12 was used with the versions in `requirements.txt`. Install them in an isolated environment and run from the package directory:
 
 ```
-@dataset{PoplarSeed-VIS,
-  title   = {PoplarSeed-VIS: A Multi-Regional Poplar Seed Visual Image Dataset},
-  author  = {lllpppzz},
-  year    = {2024},
-  url     = {https://github.com/lllpppzz/PoplarSeed-VIS}
-}
+python -m pip install -r requirements.txt
+python code/extract_features.py
+python code/cluster_analysis.py
+python code/classification_revision.py
+python code/make_revision_figures.py
 ```
 
----
+The image scale is 20 μm/pixel in both directions. Foreground selection uses max-channel distance >8 from the estimated grey background, excludes border-connected and small components, retains the largest component and fills enclosed holes.
 
-## License | 许可证
+The existing 1,940/486 train/test membership is preserved. Fixed SVMs use RBF, C=50 and gamma='scale'. Sensitivity models select C and gamma separately using only training data and five-fold CV, with scaling refitted within each fold. The primary selection metric is macro-F1. Selection CV scores are not independent test performance estimates. The test set was already used in the original study; the new analyses are exploratory sensitivity analyses on that same split.
 
-This dataset is released for academic and non-commercial research use only.  
-本数据集仅供学术和非商业研究使用。
+There are 2,000 hierarchical resamples and 1,000 block permutations per feature group. Resampling selects archive-defined batches within each material, then images within selected batches. Intervals for the three single-batch materials are conditional on those sole batches. Ten batches for four materials permit an exploratory random-intercept variance estimate after material fixed effects; this is not a genetic or geographical variance decomposition. Small batch counts and uncertain biological independence limit population inference.
+
+The 32 four-material holdout combinations overlap. Ten unique held-out-batch outcomes report average recall and ranges across their training contexts, not 32 independent experimental replicates. Corpus majority fractions (32.19% for seven materials and 40.32% for four) are distinguished from each test set's actual training-majority baseline.
+
+## Use and citation
+
+Use is subject to the academic and non-commercial terms in `LICENSE.txt`, consistent with the source repository. Cite the PoplarSeed-VIS manuscript together with the source acquisition study. No DOI is assigned to this package. Use version `revision-2026-11-11`, the source commit and the ZIP SHA256 recorded alongside the package to identify the exact files. The original archive remains available for comparison.

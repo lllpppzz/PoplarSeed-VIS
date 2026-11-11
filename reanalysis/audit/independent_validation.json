@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "original_fixed_predictions_identical": 1944,
+  "training_fold_ids_cover_only_1940_training_images": true,
+  "scaler_statistics_match_training_only_in_all_14_models": true,
+  "exact_pixel_unique_images": 2426,
+  "permutations_per_group": 1000,
+  "fitted_model_count": 14,
+  "portable_extraction_check": "passed for all2426 images; see console and package outputs"
+}
