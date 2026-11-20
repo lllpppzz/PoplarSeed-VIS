@@ -32,6 +32,7 @@ We organize the images by region, material and harvest batch. Folder suffixes di
 - `data/training_cv_folds.csv` and `data/fixed_training_cv_predictions.csv`: archived fixed-benchmark fold membership and out-of-fold predictions. These folds are distinct from the parameter-selection folds.
 - `data/primary_predictions.csv` and `data/batch_context_predictions.csv.gz`: image-level predictions.
 - `tables/`: descriptive statistics, resampling intervals, parameter-search results, retraining comparisons and harvest-batch outcomes.
+- `figures/Figure_15.tiff`: classification accuracies for the full and reduced descriptor sets, paired macro-F1 changes and permutation sensitivity.
 - `code/`: executable image processing, statistical analysis, SVM classification and plotting scripts.
 - `reference/tables/`: saved fixed-model benchmark tables for checking numerical reproduction.
 - [Image archive inventory](audit/repository_archive_inventory.csv): the path, file type, byte size and SHA256 for every TIFF in `date.zip`.
@@ -69,7 +70,7 @@ Each material label combines a variety name and its recorded source. We sampled 
 
 We provide these files for academic and non-commercial research use under the conditions in `LICENSE.txt`.
 
-- Package version: `revision-2026-11-20-v8`.
+- Package version: `revision-2026-11-20-v9`.
 - Image archive commit: `251a829552fe6355f43dd64492392c67f257d9a5`.
 - Image archive (`date.zip`) SHA256: `d6a230f2b854b53de4042442461653109ad906c772e79c56808b84a8ef749530`.
 - The complete package SHA256 is provided in `Supplementary_Data_S1.sha256` alongside the ZIP.

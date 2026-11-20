@@ -114,21 +114,89 @@ def confusion():
  save(fig,14,'Confusion matrices. Numbers are image counts; color indicates within-row percentages. Blank cells are zero.',['data/primary_predictions.csv'])
 
 def contributions():
- delta=pd.read_csv(WORK/'tables/paired_representation_differences.csv');imp=pd.read_csv(WORK/'tables/block_permutation_summary.csv').set_index('feature_group')
- fig,axes=plt.subplots(1,2,figsize=(7.2,4.2),gridspec_kw={'width_ratios':[1.2,1]});fig.subplots_adjust(left=.21,right=.985,top=.86,bottom=.26,wspace=.36)
- for i,(group,color,n) in enumerate(zip(MODEL[:3],MC[:3],[81,35,68])):
-  for setting,offset,marker in [('Fixed',-.10,'o'),('Tuned',.10,'D')]:
-   r=delta[(delta.setting==setting)&(delta.removed_group==group)].iloc[0]
-   x=-r.macro_f1_difference*100;lo=-r.macro_f1_high*100;hi=-r.macro_f1_low*100
-   axes[0].errorbar(x,i+offset,xerr=np.array([[x-lo],[hi-x]]),fmt=marker,color=color,markerfacecolor=color if setting=='Fixed' else 'white',ms=6,capsize=2.5,lw=1.4)
-  r=imp.loc[group];axes[1].errorbar(r['mean']*100,i,xerr=r['std']*100,fmt='o',color=color,ms=7,capsize=4,lw=2)
-  axes[1].text(r['mean']*100,i-.24,f"{r['mean']*100:.2f}",ha='center',fontsize=11)
- axes[0].axvline(0,color='#788A91',lw=.9,ls='--');axes[0].set_yticks(range(3),['Remove morphology\n81 descriptors','Remove color\n35 descriptors','Remove texture\n68 descriptors'],fontsize=10.5);axes[0].set_xlim(-19,7)
- axes[0].set_xlabel('Macro-F1 change after removal\n(percentage points)',fontsize=11);axes[0].set_title('Retraining ablation',fontweight='bold')
- axes[1].set_yticks(range(3),[]);axes[1].set_xlim(0,62);axes[1].set_xlabel('Macro-F1 loss under permutation\n(percentage points)',fontsize=11);axes[1].set_title('Perturbation sensitivity',fontweight='bold')
- for ax in axes:ax.set_ylim(2.5,-.5);ax.grid(axis='x');ax.spines['left'].set_visible(False);ax.tick_params(axis='y',length=0)
- fig.legend(handles=[Line2D([],[],marker='o',color='#4C6069',label='Fixed parameters'),Line2D([],[],marker='D',markerfacecolor='white',color='#4C6069',label='Training-only tuning')],loc='lower center',ncol=2,frameon=False,bbox_to_anchor=(.52,.02))
- save(fig,15,'Retraining ablation with paired batch-resampling intervals, and 1000-permutation sensitivity with mean ± SD.',['tables/paired_representation_differences.csv','tables/block_permutation_summary.csv'])
+    delta = pd.read_csv(WORK / 'tables/paired_representation_differences.csv')
+    importance = pd.read_csv(WORK / 'tables/block_permutation_summary.csv').set_index('feature_group')
+    representations = ['Combined', 'Without Morphology', 'Without Color', 'Without Texture']
+    labels = ['All descriptors', 'Color + texture', 'Morphology + texture', 'Morphology + color']
+    colors = [MC[3], MC[0], MC[1], MC[2]]
+
+    fig = plt.figure(figsize=(7.2, 7.0))
+    grid = fig.add_gridspec(2, 2, height_ratios=[1.18, 1], left=.225, right=.975,
+                           bottom=.20, top=.94, hspace=.64, wspace=.43)
+    accuracy = fig.add_subplot(grid[0, :])
+    change = fig.add_subplot(grid[1, 0])
+    permutation = fig.add_subplot(grid[1, 1])
+
+    for i, (name, color) in enumerate(zip(representations, colors)):
+        fixed = MET[(MET.representation == name) & (MET.setting == 'Fixed')].iloc[0]
+        tuned = MET[(MET.representation == name) & (MET.setting == 'Tuned')].iloc[0]
+        for row, offset, filled in [(fixed, -.17, True), (tuned, .17, False)]:
+            value = float(row.accuracy) * 100
+            y = i + offset
+            if filled:
+                rgb = np.array(to_rgb(color))
+                gradient = LinearSegmentedColormap.from_list('accuracy', [1 - (1 - rgb) * .24, rgb])
+                accuracy.imshow(np.linspace(0, 1, 256)[None, :], extent=(0, value, y - .13, y + .13),
+                                cmap=gradient, aspect='auto', origin='lower', zorder=2)
+            accuracy.barh(y, value, height=.26, facecolor='none', edgecolor=color, linewidth=.9, zorder=3)
+            accuracy.text(value + 1.1, y, f'{value:.2f}', va='center', ha='left', fontsize=10.2,
+                          color='#243740', fontweight='bold' if name == 'Without Texture' else 'normal')
+    accuracy.set_yticks(range(4), labels, fontsize=10.5)
+    accuracy.set_ylim(3.55, -.55)
+    accuracy.set_xlim(0, 106)
+    accuracy.set_xticks([0, 20, 40, 60, 80, 100])
+    accuracy.set_xlabel('Accuracy (%)', fontsize=11)
+    accuracy.set_title('Identification accuracy', fontweight='bold', pad=10)
+    accuracy.grid(False)
+    accuracy.set_axisbelow(True)
+    accuracy.tick_params(axis='y', length=0)
+    accuracy.spines['left'].set_visible(False)
+
+    for i, (group, color) in enumerate(zip(MODEL[:3], MC[:3])):
+        for setting, offset, marker in [('Fixed', -.10, 'o'), ('Tuned', .10, 'D')]:
+            row = delta[(delta.setting == setting) & (delta.removed_group == group)].iloc[0]
+            value = -row.macro_f1_difference * 100
+            low, high = -row.macro_f1_high * 100, -row.macro_f1_low * 100
+            change.errorbar(value, i + offset, xerr=np.array([[value - low], [high - value]]),
+                            fmt=marker, color=color, markerfacecolor=color if setting == 'Fixed' else 'white',
+                            markersize=5.5, capsize=2.5, linewidth=1.3)
+        row = importance.loc[group]
+        permutation.errorbar(row['mean'] * 100, i, xerr=row['std'] * 100, fmt='o',
+                             color=color, markersize=6.5, capsize=3, linewidth=1.7)
+        permutation.text(row['mean'] * 100, i - .25, f"{row['mean'] * 100:.2f}",
+                         ha='center', fontsize=10.2)
+
+    change.axvline(0, color='#788A91', linewidth=.8, linestyle='--')
+    change.set_yticks(range(3), ['Remove morphology', 'Remove color', 'Remove texture'], fontsize=10.5)
+    change.set_xlim(-19, 7)
+    change.set_xticks([-15, -10, -5, 0, 5])
+    change.set_xlabel('Macro-F1 change after removal\n(percentage points)', fontsize=10.5, linespacing=1.6)
+    change.set_title('Retraining ablation', fontweight='bold', fontsize=11.5, pad=11)
+    permutation.set_yticks(range(3), [])
+    permutation.set_xlim(0, 62)
+    permutation.set_xticks([0, 20, 40, 60])
+    permutation.set_xlabel('Macro-F1 loss under permutation\n(percentage points)', fontsize=10.5, linespacing=1.6)
+    permutation.set_title('Permutation sensitivity', fontweight='bold', fontsize=11.5, pad=11)
+    for ax in [change, permutation]:
+        ax.set_ylim(2.5, -.5)
+        ax.grid(axis='x')
+        ax.spines['left'].set_visible(False)
+        ax.tick_params(axis='y', length=0)
+    permutation.grid(False)
+
+    from matplotlib.patches import Patch
+    from matplotlib.legend_handler import HandlerTuple
+    handles = [(Patch(facecolor='#A2B1B8', edgecolor='#4C6069'),
+                Line2D([], [], marker='o', color='#4C6069')),
+               (Patch(facecolor='white', edgecolor='#4C6069'),
+                Line2D([], [], marker='D', markerfacecolor='white', color='#4C6069'))]
+    fig.legend(handles=handles, labels=['Fixed parameters', 'Training-only tuning'],
+               handler_map={tuple: HandlerTuple(ndivide=None)}, handlelength=3.0,
+               loc='lower center', ncol=2, frameon=False, bbox_to_anchor=(.53, .025), fontsize=10.5)
+    save(fig, 15,
+         'Accuracy, paired macro-F1 changes after descriptor removal, and permutation losses with mean ± SD.',
+         ['tables/primary_and_ablation_metrics.csv', 'tables/paired_representation_differences.csv',
+          'tables/block_permutation_summary.csv'])
 
 def batch_outcomes():
  contexts=pd.read_csv(WORK/'data/batch_context_predictions.csv.gz');ctx=pd.read_csv(WORK/'tables/batch_validation_reproduced.csv')
