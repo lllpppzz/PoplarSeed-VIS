@@ -64,13 +64,13 @@ We supply 2,000 hierarchical resamples and 1,000 block permutations per descript
 
 ## Interpretation of the records
 
-Each material label combines a variety name and its recorded source. Variety and source effects cannot be separated in this collection. Batch identifiers refer to different seed harvest dates within each material. Mother-tree membership and batch-specific storage logs are unavailable, so harvest batches do not establish independent mother-tree replication. The three LIAON materials each have one group, so their resampling intervals remain conditional on that observed group. The 32 holdout configurations share batches and are not independent biological replicates. They evaluate transfer in both temporal directions, not prospective early-to-late prediction alone.
+Each material label combines a variety name and its recorded source. We sampled seven varieties across four provinces, with two from Shanxi, one from Henan, three from Liaoning and one from Jiangsu. Because no variety was sampled in more than one province, we cannot estimate the effect of region on seed phenotypes within a given variety. Batch identifiers refer to different seed harvest dates within each material. Mother-tree membership and batch-specific storage logs are unavailable, so harvest batches do not establish independent mother-tree replication. The three LIAON materials each have one group, so their resampling intervals remain conditional on that observed group. The 32 holdout configurations share batches and are not independent biological replicates. They evaluate transfer in both temporal directions, not prospective early-to-late prediction alone.
 
 ## Version and use
 
 We provide these files for academic and non-commercial research use under the conditions in `LICENSE.txt`.
 
-- Package version: `revision-2026-11-20-v5`.
+- Package version: `revision-2026-11-20-v6`.
 - Original archive commit: `190fbe59b25a12b5f4428e2e5869f9272b42da79`.
 - Original `date.zip` SHA256: `eef9ae00c5efb338121cddadfff70641e9d9aa3d65d00537b25ea4d1c7f7489d`.
 - The complete package SHA256 is provided in `Supplementary_Data_S1.sha256` alongside the ZIP.
