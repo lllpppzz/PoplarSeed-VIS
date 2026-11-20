@@ -1,6 +1,6 @@
 # PoplarSeed-VIS
 
-We provide PoplarSeed-VIS for individual-seed phenotyping and identification of poplar seed materials. Our dataset contains **2,426 RGB images**, covering **seven materials**, **13 harvest batches** and **four source regions**. Each image is linked to a foreground mask, phenotype measurements and a fixed training/test assignment.
+We provide PoplarSeed-VIS for individual-seed phenotyping and identification of poplar seed materials. Our dataset contains **2,426 RGB images**, covering **seven materials**, **13 harvest batches** and **four source regions**. Our updated resource pairs each 230 × 230-pixel TIFF with the binary PNG foreground mask we generated from that image. We use the same seed ID for its image, mask, phenotype record and training or test assignment.
 
 ## Dataset composition
 
@@ -22,7 +22,7 @@ We organize the images by region, material and harvest batch. Folder suffixes di
 ## Files and records
 
 - `images/`: 2,426 original TIFF images under the canonical region folders.
-- `masks/`: one automatically extracted binary PNG mask per image.
+- `masks/`: 2,426 automatically generated binary PNG foreground masks, one per TIFF image.
 - `data/batch_metadata.csv`: harvest-batch definitions and available relative timing.
 - `data/image_manifest.csv`: image identifiers, material, harvest batch, region, paths, SHA256 hashes and training/test membership.
 - `data/seed_features.csv`: per-image phenotype measurements, including all 92 classification descriptors.
@@ -38,11 +38,11 @@ We organize the images by region, material and harvest batch. Folder suffixes di
 - `audit/`: file inventories and numerical verification records.
 - `SHA256SUMS.txt`: SHA256 hashes for the package files.
 
-We compute the current masks and descriptors directly from TIFF pixels. The archived TXT reports are retained as accompanying records and are not used as classification inputs.
+There is some overlap between the seed material in this dataset and material we examined in earlier phenotyping work. We calculated all 92 descriptors for PoplarSeed-VIS directly from the single-seed TIFF images. We retain the archived TXT reports as accompanying measurement records.
 
 ## Phenotypes and image processing
 
-We extract 11 morphological descriptors, 57 HSV color descriptors and 24 texture descriptors. Morphology includes length, width, area, perimeter and outline-shape measurements. Color combines pixel-level HSV summaries and normalized histograms. Texture uses grey-level co-occurrence matrices and local binary patterns.
+We extracted 11 morphological descriptors, 57 HSV color descriptors and 24 texture descriptors. We measured length and width from the minimum-area rectangle fitted to each segmented seed outline, with a correction for pixel extent. We also measured projected area, perimeter and shape. We computed color and texture from the foreground pixels, using HSV summaries and normalized histograms for color and grey-level co-occurrence matrices and local binary patterns for texture.
 
 Foreground selection uses a maximum-channel difference greater than 8 from the estimated grey background. Border-connected and small components are excluded; the largest remaining component is retained and enclosed holes are filled. The exact settings and measurement definitions are supplied in the code and feature dictionary.
 
@@ -70,7 +70,7 @@ Each material label combines a variety name and its recorded source. Variety and
 
 We provide these files for academic and non-commercial research use under the conditions in `LICENSE.txt`.
 
-- Package version: `revision-2026-11-11-v4`.
+- Package version: `revision-2026-11-20-v5`.
 - Original archive commit: `190fbe59b25a12b5f4428e2e5869f9272b42da79`.
 - Original `date.zip` SHA256: `eef9ae00c5efb338121cddadfff70641e9d9aa3d65d00537b25ea4d1c7f7489d`.
 - The complete package SHA256 is provided in `Supplementary_Data_S1.sha256` alongside the ZIP.
