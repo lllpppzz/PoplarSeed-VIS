@@ -1,8 +1,7 @@
 {
   "n_images": 2426,
   "extension_counts": {
-    ".tif": 2426,
-    ".txt": 80
+    ".tif": 2426
   },
   "batch_sizes": {
     "HENAN ZL-1": 156,

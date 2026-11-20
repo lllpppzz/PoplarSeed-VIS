@@ -1,8 +1,8 @@
 {
   "title": "PoplarSeed-VIS dataset and analysis resources",
-  "version": "revision-2026-11-20-v6",
-  "source_commit": "190fbe59b25a12b5f4428e2e5869f9272b42da79",
-  "source_archive_sha256": "eef9ae00c5efb338121cddadfff70641e9d9aa3d65d00537b25ea4d1c7f7489d",
+  "version": "revision-2026-11-20-v7",
+  "source_commit": "3767a4ca0980f1474337bf1cff99cf8ae6b7473a",
+  "source_archive_sha256": "904bf81aaf98d283ee1e5d269cb67ad4a8c0fb25f99ff2642b3587ab45b7319a",
   "n_images": 2426,
   "n_materials": 7,
   "n_batches": 13,

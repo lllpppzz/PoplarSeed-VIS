@@ -5,7 +5,7 @@
 - [Complete dataset and analysis package](Supplementary_Data_S1.zip) with images, masks, descriptors, exact splits and code.
 - [SHA256 checksum](Supplementary_Data_S1.sha256).
 - [Browse the analysis code](reanalysis/code) and [metadata and data splits](reanalysis/data).
-- [Original archive](date.zip), preserved unchanged.
+- [TIFF image archive](date.zip) with all 2,426 analyzed single-seed images.
 
 For a self-contained run, unpack Supplementary_Data_S1.zip and follow its README. The browsable reanalysis directory provides the same scripts and numeric records; image and mask payloads are in the complete package.
 
@@ -25,7 +25,7 @@ We provide PoplarSeed-VIS for individual-seed phenotyping and identification of 
 | Northeast China | LIAON XQY | 147 | 1 |
 | Total | 7 materials | 2,426 | 13 |
 
-The TIFF images are 230 × 230 pixels, with a standardized image scale of **20 μm/pixel** in both directions. The original `date.zip` contains 2,426 images and 80 TXT measurement reports, giving 2,506 files in total. The TXT files are separate from the image dataset.
+The TIFF images are 230 × 230 pixels, with a standardized image scale of **20 μm/pixel** in both directions. We provide all 2,426 single-seed TIFFs in `date.zip`. We removed 80 auxiliary text logs generated during image processing from the image download and Supplementary Data S1.
 
 We organize the images by region, material and harvest batch. Folder suffixes distinguish seed harvest dates within a cultivar. The four NJFU 895 folders are harvest batches of the same cultivar. For materials with multiple batches, harvests were separated by several days; `-1` denotes an earlier harvest. Exact dates and numerical day intervals are not supplied. The canonical image folders assign Shanxi to North China and Henan to Central China. We retain the original archive paths and file hashes in `data/image_manifest.csv` so that each image can be traced across the two folder structures.
 
@@ -44,11 +44,10 @@ We organize the images by region, material and harvest batch. Folder suffixes di
 - `tables/`: descriptive statistics, resampling intervals, parameter-search results, retraining comparisons and harvest-batch outcomes.
 - `code/`: executable image processing, statistical analysis, SVM classification and plotting scripts.
 - `reference/tables/`: saved fixed-model benchmark tables for checking numerical reproduction.
-- `legacy_reports/`: the 80 archived TXT measurement reports with the suffix `LWACstats`.
-- `audit/`: file inventories and numerical verification records.
+- [Image archive inventory](reanalysis/audit/repository_archive_inventory.csv): the path, file type, byte size and SHA256 for every TIFF in `date.zip`.
 - `SHA256SUMS.txt`: SHA256 hashes for the package files.
 
-There is some overlap between the seed material in this dataset and material we examined in earlier phenotyping work. We calculated all 92 descriptors for PoplarSeed-VIS directly from the single-seed TIFF images. We retain the archived TXT reports as accompanying measurement records.
+There is some overlap between the seed material in this dataset and material we examined in earlier phenotyping work. We calculated all 92 descriptors for PoplarSeed-VIS directly from the single-seed TIFF images.
 
 ## Phenotypes and image processing
 
@@ -80,9 +79,9 @@ Each material label combines a variety name and its recorded source. We sampled 
 
 We provide these files for academic and non-commercial research use under the conditions in `LICENSE.txt`.
 
-- Package version: `revision-2026-11-20-v6`.
-- Original archive commit: `190fbe59b25a12b5f4428e2e5869f9272b42da79`.
-- Original `date.zip` SHA256: `eef9ae00c5efb338121cddadfff70641e9d9aa3d65d00537b25ea4d1c7f7489d`.
+- Package version: `revision-2026-11-20-v7`.
+- Image archive commit: `3767a4ca0980f1474337bf1cff99cf8ae6b7473a`.
+- Image archive (`date.zip`) SHA256: `904bf81aaf98d283ee1e5d269cb67ad4a8c0fb25f99ff2642b3587ab45b7319a`.
 - The complete package SHA256 is provided in `Supplementary_Data_S1.sha256` alongside the ZIP.
 
-The original image archive remains unchanged. Version identifiers, manifests and checksums support reproducible use of the dataset.
+We verified the SHA256 of every TIFF against its entry in the image manifest.
