@@ -1,6 +1,6 @@
 {
-  "commit": "3767a4ca0980f1474337bf1cff99cf8ae6b7473a",
-  "archive_sha256": "904bf81aaf98d283ee1e5d269cb67ad4a8c0fb25f99ff2642b3587ab45b7319a",
+  "commit": "251a829552fe6355f43dd64492392c67f257d9a5",
+  "archive_sha256": "d6a230f2b854b53de4042442461653109ad906c772e79c56808b84a8ef749530",
   "extension_counts": {
     ".tif": 2426
   },
@@ -10,5 +10,6 @@
   "all_image_payloads_identical_to_local": true,
   "local_only_payloads": [],
   "archive_only_payloads": [],
-  "explanation": "The image archive contains the 2,426 analyzed TIFFs. We verified their paths and SHA256 values against the image manifest."
+  "explanation": "The image archive contains all 2,426 analyzed TIFFs under the same regional and batch folders as Supplementary Data S1. Current archive paths and SHA256 values match the image manifest.",
+  "regional_directories_match_metadata": true
 }

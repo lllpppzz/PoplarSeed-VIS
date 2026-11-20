@@ -27,7 +27,7 @@ We provide PoplarSeed-VIS for individual-seed phenotyping and identification of 
 
 The TIFF images are 230 × 230 pixels, with a standardized image scale of **20 μm/pixel** in both directions. We provide all 2,426 single-seed TIFFs in `date.zip`. We removed 80 auxiliary text logs generated during image processing from the image download and Supplementary Data S1.
 
-We organize the images by region, material and harvest batch. Folder suffixes distinguish seed harvest dates within a cultivar. The four NJFU 895 folders are harvest batches of the same cultivar. For materials with multiple batches, harvests were separated by several days; `-1` denotes an earlier harvest. Exact dates and numerical day intervals are not supplied. The canonical image folders assign Shanxi to North China and Henan to Central China. We retain the original archive paths and file hashes in `data/image_manifest.csv` so that each image can be traced across the two folder structures.
+We organize the images by region, material and harvest batch. Folder suffixes distinguish seed harvest dates within a cultivar. The four NJFU 895 folders are harvest batches of the same cultivar. For materials with multiple batches, harvests were separated by several days; `-1` denotes an earlier harvest. Exact dates and numerical day intervals are not supplied. Both `date.zip` and Supplementary Data S1 assign Shanxi to North China and Henan to Central China, with the same material and harvest-batch folders. In `data/image_manifest.csv`, `archive_relative_path` gives the current path in `date.zip`, and `image_path` gives the path in Supplementary Data S1. The `source_relative_path` and `legacy_region` fields record the original archive for provenance.
 
 ## Files and records
 
@@ -79,9 +79,9 @@ Each material label combines a variety name and its recorded source. We sampled 
 
 We provide these files for academic and non-commercial research use under the conditions in `LICENSE.txt`.
 
-- Package version: `revision-2026-11-20-v7`.
-- Image archive commit: `3767a4ca0980f1474337bf1cff99cf8ae6b7473a`.
-- Image archive (`date.zip`) SHA256: `904bf81aaf98d283ee1e5d269cb67ad4a8c0fb25f99ff2642b3587ab45b7319a`.
+- Package version: `revision-2026-11-20-v8`.
+- Image archive commit: `251a829552fe6355f43dd64492392c67f257d9a5`.
+- Image archive (`date.zip`) SHA256: `d6a230f2b854b53de4042442461653109ad906c772e79c56808b84a8ef749530`.
 - The complete package SHA256 is provided in `Supplementary_Data_S1.sha256` alongside the ZIP.
 
 We verified the SHA256 of every TIFF against its entry in the image manifest.

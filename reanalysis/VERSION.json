@@ -1,12 +1,13 @@
 {
   "title": "PoplarSeed-VIS dataset and analysis resources",
-  "version": "revision-2026-11-20-v7",
-  "source_commit": "3767a4ca0980f1474337bf1cff99cf8ae6b7473a",
-  "source_archive_sha256": "904bf81aaf98d283ee1e5d269cb67ad4a8c0fb25f99ff2642b3587ab45b7319a",
+  "version": "revision-2026-11-20-v8",
+  "source_commit": "251a829552fe6355f43dd64492392c67f257d9a5",
+  "source_archive_sha256": "d6a230f2b854b53de4042442461653109ad906c772e79c56808b84a8ef749530",
   "n_images": 2426,
   "n_materials": 7,
   "n_batches": 13,
   "batch_basis": "seed harvest date",
   "harvest_interval": "several days; exact dates not supplied",
-  "scale_um_per_pixel": 20
+  "scale_um_per_pixel": 20,
+  "original_archive_commit": "190fbe59b25a12b5f4428e2e5869f9272b42da79"
 }
