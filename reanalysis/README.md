@@ -38,7 +38,7 @@ We organize the images by region, material and harvest batch. Folder suffixes di
 - [Image archive inventory](audit/repository_archive_inventory.csv): the path, file type, byte size and SHA256 for every TIFF in `date.zip`.
 - `SHA256SUMS.txt`: SHA256 hashes for the package files.
 
-There is some overlap between the seed material in this dataset and material we examined in earlier phenotyping work. We calculated all 92 descriptors for PoplarSeed-VIS directly from the single-seed TIFF images.
+We calculated all 92 descriptors for PoplarSeed-VIS directly from the single-seed TIFF images.
 
 ## Phenotypes and image processing
 
@@ -48,7 +48,7 @@ Foreground selection uses a maximum-channel difference greater than 8 from the e
 
 ## Reproduce the analysis
 
-We used Python 3.12 with the dependency versions listed in `requirements.txt`. Unpack the complete package, open its directory and run:
+We reproduced the analysis with Python 3.12.7, NumPy 1.26.4 and the headless OpenCV 4.11.0.86 wheel. In a fresh Python 3.12 environment, unpack the complete package, open its directory and run:
 
 ```
 python -m pip install -r requirements.txt
@@ -70,7 +70,7 @@ Each material label combines a variety name and its recorded source. We sampled 
 
 We provide these files for academic and non-commercial research use under the conditions in `LICENSE.txt`.
 
-- Package version: `revision-2026-11-20-v9`.
+- Package version: `revision-2026-11-27-v10`.
 - Image archive commit: `251a829552fe6355f43dd64492392c67f257d9a5`.
 - Image archive (`date.zip`) SHA256: `d6a230f2b854b53de4042442461653109ad906c772e79c56808b84a8ef749530`.
 - The complete package SHA256 is provided in `Supplementary_Data_S1.sha256` alongside the ZIP.

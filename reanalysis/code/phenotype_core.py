@@ -1,6 +1,6 @@
 """Deterministic threshold phenotyping of supplied PoplarSeed-VIS crops.
 
-Run from this directory with: python -X utf8 phenotyping.py
+From the package root, run python code/extract_features.py.
 Original TIFFs are read-only. Measurements are derived from foreground only.
 """
 from __future__ import annotations
@@ -40,7 +40,7 @@ def segment_seed(rgb: np.ndarray, threshold: float = 8) -> tuple[np.ndarray, dic
     """Threshold max-channel distance from background; exclude outer canvas.
 
     The supplied crops have an exactly neutral (128,128,128) circular field
-    and black corners. Estimating the modal field avoids a brightness-only
+    and black corners. Estimating the channel-wise median in an annulus avoids a brightness-only
     threshold that would discard pale or dark seed regions.
     """
     h,w=rgb.shape[:2]
@@ -113,7 +113,7 @@ def masked_glcm(gray: np.ndarray, mask: np.ndarray, distance: int, levels: int=3
     """Symmetric co-occurrences with BOTH members inside the seed.
 
     Gray quantization is global floor(gray*32/256); no per-seed rescaling.
-    Directions are 0,45,90,135 degrees with nearest-integer pixel offsets.
+    For lattice step d, the (row, column) offsets are (0,d), (d,d), (d,0), and (d,-d).
     """
     q=np.minimum(gray.astype(np.uint16)*levels//256,levels-1)
     matrices=[]
